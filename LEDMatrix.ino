@@ -1,5 +1,5 @@
 #include <FastLED.h>
-#include <fix_fft.h>   //to get input from audio source, connect audio output to Analog 0.
+#include <fix_fft.h>
 
 #define NUM_LEDS 300
 #define DATA_PIN 11
