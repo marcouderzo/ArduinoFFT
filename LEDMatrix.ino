@@ -70,8 +70,7 @@ void pushBar (int x, int y)
 void setup() 
 {
   FastLED.addLeds<WS2812B, DATA_PIN, RGB>(leds, NUM_LEDS);
-  pinMode(switchMode, INPUT);
-  Serial.begin(9600);
+  //Serial.begin(9600); //for debugging and logging data
 
 }
 
