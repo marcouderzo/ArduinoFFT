@@ -17,7 +17,7 @@ char data[20], im[20];  // FFT array variables
     @documentation: getPixel() takes x y values, calculates the LED position considering the matrix 
     is a serpentine vector, and returns index used to identify LED in leds[] array. uint8_t is an unsigned 
     8bit char type, used instead of int to save heap memory. This way SRAM is unlikely to get filled.
-    @optimization: possibly cleaner: if(y%2==0) y*mWidth+reverseX. if row(y)is even. This way the 
+    @optimization: better memory management: if(y%2==0) y*mWidth+reverseX (for even rows). This way the 
     XYTable[] array wouldn't be necessary as "i" could be used directly as the index of CRGB leds[] array.
 */
 
@@ -61,6 +61,7 @@ void pushBar (int x, int y)
   }
   for(int k=0; k<y; k++)
   {
+  pixel=getPixel(x,k);
   leds[pixel] = CRGB::Black;
   FastLED.show();
   }
