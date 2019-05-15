@@ -8,5 +8,8 @@ A spectrum analyzer takes as input music, specifically its sine wave, and proces
 - Arduino Nano
 - WS2812B RGB LEDS (x300) laid down as a serpentine-like vector, seen as a matrix.
 
+## External Libraries
+### <FastLED.h>
 
+### <fix_fft.h>
 
