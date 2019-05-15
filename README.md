@@ -8,7 +8,7 @@ A spectrum analyzer takes as input music, specifically its sine wave, and proces
 - Arduino Nano
 - WS2812B RGB LEDS (x300) laid down as a serpentine-like vector, seen as a matrix.
 
-Data from music is fetched connecting one of the leads of the 3.5mm jack to an analogPin set to `INPUT`.
+Data from music is fetched connecting one of the leads of the 3.5mm jack to an analogPin set to `INPUT`. This way the Arduino keeps reading the different voltage levels, which are the values of the sine wave. 
 
 ## External Libraries
 ### <FastLED.h>
