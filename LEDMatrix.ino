@@ -59,7 +59,7 @@ void pushBar (int x, int y)
     leds[pixel] = CRGB(0, 0, 255);
     FastLED.show();
   }
-  for(int k=0; k<y; k++)
+  for(int k=0; k<y; k++)  //still debugging and optimizing. may not be as efficient as of right now. Using FastLED.clear() function could be a better choice. 
   {
   pixel=getPixel(x,k);
   leds[pixel] = CRGB::Black;
