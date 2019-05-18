@@ -1,23 +1,27 @@
 #include <FastLED.h>
-#include <fix_fft.h>
+#include <fix_fft.h>   //to get input from audio source, connect audio output to Analog 0.
 
 #define NUM_LEDS 300
-#define DATA_PIN 11
+#define DATA_PIN 12
 #define mHeight 15
 #define mWidth 20
-#define audioPin A3 // Left or right channel audio positive lead connects here
-#define maxExpectedAudio 110  // Change this value to adjust the sensitivity
+const int audioPin = A0; // Left or right channel audio positive lead connects here
+#define maxExpectedAudio 150   // Change this value to adjust the sensitivity
 
 
 CRGB leds[NUM_LEDS];
-char data[20], im[20];  // FFT array variables
+char data[20];  // FFT array variable
+char im[]={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,}; //FFT im data
+
+
 
 //**************************
 /*
     @documentation: getPixel() takes x y values, calculates the LED position considering the matrix 
-    is a serpentine vector, and returns index used to identify LED in leds[] array. uint8_t is an unsigned 
+    is a serpentine-like vector, and returns index used to identify LED in leds[] array. uint8_t is an unsigned 
     8bit char type, used instead of int to save heap memory. This way SRAM is unlikely to get filled.
-    @optimization: better memory management: if(y%2==0) y*mWidth+reverseX (for even rows). This way the 
+
+    @optimization: possibly cleaner: if(y%2==0) y*mWidth+reverseX. if row(y)is even, with row(i)being i*mWidth. This way the 
     XYTable[] array wouldn't be necessary as "i" could be used directly as the index of CRGB leds[] array.
 */
 
@@ -53,25 +57,19 @@ uint8_t getPixel(int x, int y)
 void pushBar (int x, int y)
 {
   uint8_t pixel;
-  for (int i = y; i >=0; i--)
+  for (int i = 0; i<y; i++)
   {
     pixel=getPixel(x,i);
-    leds[pixel] = CRGB(0, 0, 255);
+    leds[pixel] = CRGB(255, 0, 0);
+  }
     FastLED.show();
-  }
-  for(int k=0; k<y; k++)  //still debugging and optimizing. may not be as efficient as of right now. Using FastLED.clear() function could be a better choice. 
-  {
-  pixel=getPixel(x,k);
-  leds[pixel] = CRGB::Black;
-  FastLED.show();
-  }
 }
-
 
 void setup() 
 {
   FastLED.addLeds<WS2812B, DATA_PIN, RGB>(leds, NUM_LEDS);
-  //Serial.begin(9600); //for debugging and logging data
+  FastLED.setBrightness(70);
+  //Serial.begin(9600); //debugging and testing
 
 }
 
@@ -80,16 +78,16 @@ void loop()
 { 
   for (int i = 0; i < 20; i++) 
   {
-    data[i] = analogRead(audioPin);
-    im[i]=0;
+    data[i] = analogRead(A5);
   }
 
-  fix_fft(data, im, mWidth, 0);  // FFT processing (20 bands)
-
+ fix_fft(data, im, mWidth, 0);  
+  
   for(int i=0; i<mWidth; i++)
   {
-    data[i] = sqrt(data[i]*data[i] + im[i]*im[i]);
+   // data[i] = sqrt(data[i]*data[i] + im[i]*im[i]);  // make values positive in case of negative values
     data[i] = map(data[i],0,maxExpectedAudio,0,mHeight);
     pushBar(i, data[i]);
   }
+  FastLED.clear();
 }
