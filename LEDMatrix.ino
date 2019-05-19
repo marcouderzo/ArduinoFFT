@@ -11,7 +11,7 @@ const int audioPin = A0; // Left or right channel audio positive lead connects h
 
 CRGB leds[NUM_LEDS];
 char data[20];  // FFT array variables
-char im[]={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,};
+char im[]={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
 uint16_t pixel;
 
