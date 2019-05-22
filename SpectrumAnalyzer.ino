@@ -1,6 +1,6 @@
 #include <FastLED.h>
 #include <LEDMatrix.h>
-#include <fix_fft.h>   //to get input from audio source, connect audio output to Analog 0.
+#include <fix_fft.h>
 
 #define mHeight 15
 #define mWidth 20
