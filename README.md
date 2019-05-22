@@ -10,7 +10,7 @@ A spectrum analyzer takes as input music, specifically its sine wave, and proces
 
 Data from music is fetched connecting one of the leads of the 3.5mm jack to an analogPin set to `INPUT`. This way the Arduino keeps reading the different voltage levels, which are the values of the sine wave. Then an FFT is performed and the output is pushed to the matrix.
 
-## External Libraries
+## External #include Libraries
 ### <FastLED.h>
 Easy to use library to work with neopixel leds (and similar chipsets, in my case WS2812B).
 
