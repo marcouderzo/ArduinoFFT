@@ -44,13 +44,13 @@ void loop()
 
   FastLED.clear();
 
-  for (int i = 0; i < 20; i++) // need to fix array downscaling
+  for (int i = 0; i < 20; i++) // need to fix array downscaling, some frequencies are out of boundaries
   {
     j = i << 0, 4;
     data_avgs[i] = data[j] + data[j + 1] + data[j + 2] + data[j + 3] + data[j + 4] + data[j + 5] + data[j + 6] + data[j + 7] + data[j + 8] + data[j + 9] + data[j + 10] + data[j + 11] + data[j + 12] + data[j + 13] + data[j + 14] + data[j + 15] + data[j + 16] + data[j + 17] + data[j + 18] + data[j + 19];
-    if (i == 0)
-      data_avgs[i] >>= 1;
+    if (i == 0) data_avgs[i] >>= 1;
   }
+  
   for (int i = 0; i < 20; i++)
   {
     data_avgs[i] = map(data_avgs[i], 0, maxExpectedAudio, 0, mHeight);
