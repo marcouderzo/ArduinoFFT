@@ -1,4 +1,4 @@
-# LED-SpectrumAnalyzer
+# LED-Matrix SpectrumAnalyzer
 Arduino-Based Music Spectrum Analyzer.
 
 ## A brief Introduction
