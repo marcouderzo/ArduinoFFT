@@ -21,7 +21,7 @@ cLEDMatrix < -mWidth, mHeight, mType > leds;
 
 //********************************************** Defining Custom RGB Palettes
 
-// Position, Gval, Rval, Bval
+// @Parameters: Position, Rval, Gval, Bval
 
 DEFINE_GRADIENT_PALETTE(BlueToRed)
 {
