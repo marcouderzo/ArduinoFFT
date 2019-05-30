@@ -5,23 +5,23 @@
 #define mHeight 15
 #define mWidth 20
 #define mSize (mWidth*mHeight)
-#define mType HORIZONTAL_ZIGZAG_MATRIX
+#define mType VERTICAL_ZIGZAG_MATRIX
 #define DATA_PIN 12
 #define audioPin A5 // Left or right channel audio positive lead connects here
+#define tap 3
 #define maxFreqAmplitude 40   // Change this value to adjust the sensitivity
 
 char data[128], im[128];  // FFT Array Variables
 char data_out[20];
 
-int tap = 3;
 int mode = 0;
 
-cLEDMatrix < -mWidth, mHeight, mType > leds;
+cLEDMatrix < mWidth, mHeight, mType > leds; 
 
 
 //********************************************** Defining Custom RGB Palettes
 
-// @Parameters: Position, Rval, Gval, Bval
+// Position, Gval, Rval, Bval
 
 DEFINE_GRADIENT_PALETTE(BlueToRed)
 {
@@ -68,7 +68,6 @@ void setup()
 
 void loop()
 {
-
   for (int i = 0; i < 128; i++)
   {
     data[i] = analogRead(audioPin);
