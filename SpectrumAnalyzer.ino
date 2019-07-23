@@ -5,18 +5,21 @@
 #define mHeight 15
 #define mWidth 20
 #define mSize (mWidth*mHeight)
-#define mType VERTICAL_ZIGZAG_MATRIX
+#define mLayout VERTICAL_ZIGZAG_MATRIX
 #define DATA_PIN 12
 #define audioPin A5 // Left or right channel audio positive lead connects here
-#define tap 3
+#define buttonPin 10
 #define maxFreqAmplitude 40   // Change this value to adjust the sensitivity
 
 char data[128], im[128];  // FFT Array Variables
 char data_out[20];
 
 int mode = 0;
+int serial_read=1;
 
-cLEDMatrix < mWidth, mHeight, mType > leds; 
+cLEDMatrix < mWidth, mHeight, mLayout > leds;
+
+
 
 
 //********************************************** Defining Custom RGB Palettes
@@ -27,13 +30,6 @@ DEFINE_GRADIENT_PALETTE(BlueToRed)
 {
   0, 0, 0, 255,
   255,  255, 0, 0
-};
-
-DEFINE_GRADIENT_PALETTE(BlueRedSandwitch)
-{
-  0, 0, 0, 255,
-  128, 255, 0, 0,
-  255, 0, 0, 255
 };
 
 DEFINE_GRADIENT_PALETTE(PinkToRed)
@@ -50,8 +46,8 @@ DEFINE_GRADIENT_PALETTE(skyline)
 };
 
 
-DEFINE_GRADIENT_PALETTE(GreenBlue) {   
-  0, 17,80,255,
+DEFINE_GRADIENT_PALETTE(GreenBlue) {
+  0, 17, 80, 255,
   255, 0, 255, 0
 };
 
@@ -63,11 +59,13 @@ void setup()
 {
   FastLED.addLeds<WS2812B, DATA_PIN, GRB>(leds[0], leds.Size());
   FastLED.setBrightness(70);
-  pinMode(tap, INPUT);
+  pinMode(buttonPin, INPUT);
+  Serial.begin(9600);
 }
 
 void loop()
 {
+  
   for (int i = 0; i < 128; i++)
   {
     data[i] = analogRead(audioPin);
@@ -85,8 +83,7 @@ void loop()
   for (int i = 0; i < 20; i++) //average values into a smaller array to fit the matrix width
   {
     data_out[i] = data[i * 3] + data[i * 3 + 1] + data[i * 3 + 2];
-    if (i == 0) data_out[i] >>= 1;  // de-emphasize first band
-    //if (i == 1) data_out[i] >>= 1;
+    if (i == 0) data_out[i] >>= 1;
   }
 
 
@@ -95,35 +92,48 @@ void loop()
     data_out[i] = map(data_out[i], 0, maxFreqAmplitude, 0, mHeight);
   }
 
-  if (tap == HIGH)  // switch Color Palette using a button
+//*************************** Serial Comunication
+
+  if(Serial.available() > 0)
   {
-    if (mode == 5) mode = 0;
-    else mode++;
+    serial_read = Serial.read();
+    Serial.print(serial_read);
   }
 
-  switch (mode)
+  if(serial_read)
   {
-    case 0:
-      hue = RedToBlue;
-      break;
-    case 1:
-      hue = RedPinkBlue;
-      break;
-    case 2:
-      hue = BlueToWhite;
-      break;
-    case 3:
-      hue = skyline;
-      break;
-    case 4:
-      hue = GreenBlue;
-      break;
-    case 5:
-      hue = Rainbow_gp;
-      break;
-    default:
-      hue = skyline;
-  }
+    switch (serial_read) 
+    {
+      case 49:
+        hue = BlueToRed;
+        break;
+      case 50:
+        hue = PinkToRed;
+        break;
+      case 51:
+        hue = skyline;
+        break;
+      case 52:
+        hue = GreenBlue;
+        break;
+      case 53:
+        hue = Rainbow_gp;
+        break;
+      case 54:
+        hue = CloudColors_p;
+        break;
+      case 55:
+        hue = LavaColors_p;
+        break;
+      case 56:
+        hue = OceanColors_p;
+        break;
+      default:
+        hue = skyline;
+    }
+  }  
+
+//******************************
 
   FastLED.clear();
 
