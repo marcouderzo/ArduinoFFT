@@ -1,4 +1,4 @@
-# LED-SpectrumAnalyzer
+# LED_MusicSpectrumVisualizer
 Arduino-Based Music Spectrum Analyzer.
 
 ## A brief Introduction
