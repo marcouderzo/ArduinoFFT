@@ -45,7 +45,7 @@ MainWindow::~MainWindow()
 
 
 
-//*************************************  SERIAL COMMANDS
+//*************************************  SERIAL COMMANDS to Arduino
 
 
 void MainWindow::on_push_pal1_clicked()
