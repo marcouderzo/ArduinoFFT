@@ -26,3 +26,6 @@ The Arduino can be controlled through a GUI, created in QT. The GUI establishes 
 
 ### Functions
 - Switch Color Palettes
+- Adjust Frequency Axis (STILL IN DEVELOPMENT)
+- Adjust Number of Frequency Bands (STILL IN DEVELOPMENT)
+- Display Time onto the LED Matrix (STILL IN DEVELOPMENT) 
