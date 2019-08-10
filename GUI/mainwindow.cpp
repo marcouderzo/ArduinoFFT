@@ -45,45 +45,50 @@ MainWindow::~MainWindow()
 
 
 
-//*************************************  SERIAL COMMANDS to Arduino
+//*************************************  SERIAL COMMANDS
 
 
 void MainWindow::on_push_pal1_clicked()
 {
-    arduino->write("1");
+    arduino->write("2");
 }
 
 void MainWindow::on_push_pal1_2_clicked()
 {
-    arduino->write("2");
+    arduino->write("3");
 }
 
 void MainWindow::on_push_pal1_3_clicked()
 {
-    arduino->write("3");
+    arduino->write("4");
 }
 
 void MainWindow::on_push_pal1_4_clicked()
 {
-    arduino->write("4");
+    arduino->write("5");
 }
 
 void MainWindow::on_push_pal1_5_clicked()
 {
-    arduino->write("5");
-}
-
-void MainWindow::on_push_pal1_6_clicked()
-{
     arduino->write("6");
 }
 
-void MainWindow::on_push_pal1_7_clicked()
+
+void MainWindow::on_pushButton_clicked()
 {
-    arduino->write("7");
+    arduino->write("0");
 }
 
-void MainWindow::on_push_pal1_8_clicked()
+void MainWindow::on_pushButton_2_clicked()
 {
-    arduino->write("8");
+   arduino->write("1");
+}
+
+void MainWindow::on_pushButton_3_clicked(bool disconnect)
+{
+   if(disconnect==false)
+   {
+       disconnect=true;
+       arduino->close();
+   }
 }
