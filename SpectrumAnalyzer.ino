@@ -14,12 +14,26 @@
 char data[128], im[128];  // FFT Array Variables
 char data_out[20];
 
-int mode = 0;
-int serial_read=1;
+int serial_input;
+int range_command;
+int color_command;
 
 cLEDMatrix < mWidth, mHeight, mLayout > leds;
 
-
+void parse_serial_input()
+{
+  if (serial_input == 48 || serial_input == 49)
+  {
+    range_command = serial_input;
+    return;
+  }
+  else
+  {
+    color_command = serial_input;
+    return;
+  }
+  return;
+}
 
 
 //********************************************** Defining Custom RGB Palettes
@@ -65,7 +79,14 @@ void setup()
 
 void loop()
 {
-  
+
+  if (Serial.available() > 0)
+  {
+    serial_input = Serial.read();
+    parse_serial_input();
+  }
+
+
   for (int i = 0; i < 128; i++)
   {
     data[i] = analogRead(audioPin);
@@ -79,67 +100,63 @@ void loop()
     data[i] = sqrt(data[i] * data[i] + im[i] * im[i]);
   }
 
-
-  for (int i = 0; i < 20; i++) //average values into a smaller array to fit the matrix width
+  if (range_command == 49)  //Bass Frequency Range
   {
-    data_out[i] = data[i * 3] + data[i * 3 + 1] + data[i * 3 + 2];
-    if (i == 0) data_out[i] >>= 1;
+    data_out[1] >>= 3;
+    data_out[2] >>= 1;
   }
-
+  else  //Complete Frequency Range
+  {
+    for (int i = 0; i < 20; i++)
+    {
+      data_out[i] = data[i * 3] + data[i * 3 + 1] + data[i * 3 + 2];
+      if (i == 0) data_out[i] >>= 1;
+    }
+  }
 
   for (int i = 0; i < 20; i++)
   {
     data_out[i] = map(data_out[i], 0, maxFreqAmplitude, 0, mHeight);
   }
 
-//*************************** Serial Comunication
-
-  if(Serial.available() > 0)
-  {
-    serial_read = Serial.read();
-    Serial.print(serial_read);
-  }
-
-  if(serial_read)
-  {
-    switch (serial_read) 
+    switch (color_command)
     {
-      case 49:
+      case 50:
         hue = BlueToRed;
         break;
-      case 50:
+      case 51:
         hue = PinkToRed;
         break;
-      case 51:
-        hue = skyline;
-        break;
       case 52:
-        hue = GreenBlue;
+        hue = skyline;
         break;
       case 53:
-        hue = Rainbow_gp;
+        hue = GreenBlue;
         break;
       case 54:
-        hue = CloudColors_p;
-        break;
-      case 55:
-        hue = LavaColors_p;
-        break;
-      case 56:
-        hue = OceanColors_p;
+        hue = Rainbow_gp;
         break;
       default:
-        hue = skyline;
+        hue = BlueToRed;
     }
-  }  
-
-//******************************
-
   FastLED.clear();
 
-  for (int i = 0; i < mWidth; i++)
+  int k = 1;
+  if (range_command==49)
   {
-    leds.DrawLine(i, 0, i, data_out[i], ColorFromPalette(hue, 12 * i));
+    for (int i = 0; i < mWidth; i += 2)
+    {
+      leds.DrawLine(i, 0, i, data[k], ColorFromPalette(hue, 12 * i));
+      leds.DrawLine(i + 1, 0, i + 1, data[k], ColorFromPalette(hue, 12 * i));
+      k++;
+    }
+  }
+  else
+  {
+    for (int i = 0; i < mWidth; i++)
+    {
+      leds.DrawLine(i, 0, i, data_out[i], ColorFromPalette(hue, 12 * i));
+    }
   }
   FastLED.show();
 }
