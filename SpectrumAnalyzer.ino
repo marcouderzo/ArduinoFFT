@@ -106,7 +106,7 @@ void setup()
 {
   FastLED.addLeds<WS2812B, DATA_PIN, GRB>(leds[0], leds.Size());
   FastLED.setBrightness(70);
-  pinMode(buttonPin, INPUT);
+  pinMode(buttonPin, INPUT);  //deprecated: using GUI
   Serial.begin(9600);
 }
 
