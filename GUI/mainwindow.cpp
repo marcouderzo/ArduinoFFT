@@ -46,31 +46,32 @@ MainWindow::~MainWindow()
 
 
 //*************************************  SERIAL COMMANDS
-
+// serial commands are sent as ASCII code, so Arduino
+// will read them as integers ranging from 97-106
 
 void MainWindow::on_push_pal1_clicked()
 {
-    arduino->write("2");
+    arduino->write("a");
 }
 
 void MainWindow::on_push_pal1_2_clicked()
 {
-    arduino->write("3");
+    arduino->write("b");
 }
 
 void MainWindow::on_push_pal1_3_clicked()
 {
-    arduino->write("4");
+    arduino->write("c");
 }
 
 void MainWindow::on_push_pal1_4_clicked()
 {
-    arduino->write("5");
+    arduino->write("d");
 }
 
 void MainWindow::on_push_pal1_5_clicked()
 {
-    arduino->write("6");
+    arduino->write("e");
 }
 
 
@@ -92,3 +93,35 @@ void MainWindow::on_pushButton_3_clicked(bool disconnect)
        arduino->close();
    }
 }
+
+void MainWindow::on_push_pal1_10_clicked()
+{
+    arduino->write("f");
+}
+
+void MainWindow::on_push_pal1_9_clicked()
+{
+    arduino->write("g");
+}
+
+void MainWindow::on_push_pal1_7_clicked()
+{
+    arduino->write("h");
+}
+
+void MainWindow::on_push_pal1_8_clicked()
+{
+    arduino->write("i");
+}
+
+void MainWindow::on_push_pal1_6_clicked()
+{
+    arduino->write("j");
+}
+
+void MainWindow::on_push_pal1_11_clicked()
+{
+    arduino->write("k");
+}
+
+

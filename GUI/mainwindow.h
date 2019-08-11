@@ -33,6 +33,18 @@ private slots:
 
     void on_pushButton_3_clicked(bool checked);
 
+    void on_push_pal1_10_clicked();
+
+    void on_push_pal1_9_clicked();
+
+    void on_push_pal1_7_clicked();
+
+    void on_push_pal1_8_clicked();
+
+    void on_push_pal1_6_clicked();
+
+    void on_push_pal1_11_clicked();
+
 private:
     Ui::MainWindow *ui;
     QSerialPort *arduino;
