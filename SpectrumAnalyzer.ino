@@ -8,7 +8,7 @@
 #define mLayout VERTICAL_ZIGZAG_MATRIX
 #define DATA_PIN 12
 #define audioPin A5 // Left or right channel audio positive lead connects here
-#define buttonPin 10
+// #define buttonPin 10 //using GUI
 #define maxFreqAmplitude 40   // Change this value to adjust the sensitivity
 
 char data[128], im[128];  // FFT Array Variables
@@ -106,7 +106,7 @@ void setup()
 {
   FastLED.addLeds<WS2812B, DATA_PIN, GRB>(leds[0], leds.Size());
   FastLED.setBrightness(70);
-  pinMode(buttonPin, INPUT);  //deprecated: using GUI
+  //pinMode(buttonPin, INPUT);  //now using GUI
   Serial.begin(9600);
 }
 
