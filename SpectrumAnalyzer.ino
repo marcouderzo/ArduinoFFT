@@ -18,24 +18,6 @@ int serial_input;
 int range_command;
 int color_command;
 
-cLEDMatrix < mWidth, mHeight, mLayout > leds;
-
-void parse_serial_input()
-{
-  if (serial_input == 48 || serial_input == 49)
-  {
-    range_command = serial_input;
-    return;
-  }
-  else
-  {
-    color_command = serial_input;
-    return;
-  }
-  return;
-}
-
-
 //********************************************** Defining Custom RGB Palettes
 
 // Position, Gval, Rval, Bval
@@ -65,7 +47,58 @@ DEFINE_GRADIENT_PALETTE(GreenBlue) {
   255, 0, 255, 0
 };
 
+DEFINE_GRADIENT_PALETTE(Pizelex) {
+  0, 17, 67, 87,
+  255, 242, 148, 146
+};
+
+DEFINE_GRADIENT_PALETTE(Netflix) {
+  0, 142, 14, 0,
+  255, 133, 129, 125
+};
+
+DEFINE_GRADIENT_PALETTE(Summer) {
+  0, 168, 255, 120,
+  255, 120, 255, 214
+};
+
+DEFINE_GRADIENT_PALETTE(Wedding) {
+  0, 64, 224, 208,
+  128, 255, 140, 0,
+  255, 255, 0, 128
+};
+
+DEFINE_GRADIENT_PALETTE(IbizaSunset) {
+  0, 238, 9, 121,
+  255, 255, 106, 0
+};
+
+DEFINE_GRADIENT_PALETTE(Aquamarine) {
+  0, 26, 41, 128,
+  255, 38, 208, 206
+};
+
+
+
+
 //**********************************************
+
+cLEDMatrix < mWidth, mHeight, mLayout > leds;
+
+void parse_serial_input()
+{
+  if (serial_input == 48 || serial_input == 49)
+  {
+    range_command = serial_input;
+    return;
+  }
+  else
+  {
+    color_command = serial_input;
+    return;
+  }
+  return;
+}
 
 CRGBPalette16 hue;
 
@@ -119,30 +152,50 @@ void loop()
     data_out[i] = map(data_out[i], 0, maxFreqAmplitude, 0, mHeight);
   }
 
-    switch (color_command)
-    {
-      case 50:
-        hue = BlueToRed;
-        break;
-      case 51:
-        hue = PinkToRed;
-        break;
-      case 52:
-        hue = skyline;
-        break;
-      case 53:
-        hue = GreenBlue;
-        break;
-      case 54:
-        hue = Rainbow_gp;
-        break;
-      default:
-        hue = BlueToRed;
-    }
+
+  switch (color_command)  // serial commands are sent as ASCII code, so Arduino will read them as integers ranging from 97-106
+  {
+    case 97:
+      hue = BlueToRed;
+      break;
+    case 98:
+      hue = PinkToRed;
+      break;
+    case 99:
+      hue = skyline;
+      break;
+    case 100:
+      hue = GreenBlue;
+      break;
+    case 101:
+      hue = Rainbow_gp;
+      break;
+    case 102:
+      hue = Pizelex;
+      break;
+    case 103:
+      hue = Netflix;
+      break;
+    case 104:
+      hue = Summer;
+      break;
+    case 105:
+      hue = Wedding;
+      break;
+    case 106:
+      hue = IbizaSunset;
+      break;
+    case 107:
+      hue = Aquamarine;
+      break;
+    default:
+      hue = BlueToRed;
+  }
+  
   FastLED.clear();
 
   int k = 1;
-  if (range_command==49)
+  if (range_command == 49)
   {
     for (int i = 0; i < mWidth; i += 2)
     {
