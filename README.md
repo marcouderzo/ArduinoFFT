@@ -27,3 +27,5 @@ The Arduino can be controlled through a GUI, created in QT. The GUI establishes 
 ### Functions
 - Switch Color Palettes
 - Switch between Full Spectrum and Bass Spectrum
+
+-> Adjust Amplitude Sensitivity
