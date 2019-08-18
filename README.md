@@ -1,4 +1,4 @@
-![git/readme_img.png]
+![](git/readme_img.png)
 
 # MusicSpectrumVisualizer
 A Neopixel Arduino-Based Music Spectrum Analyzer.
