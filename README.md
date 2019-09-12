@@ -22,7 +22,7 @@ This library is used to perform a Fast Fourier Transform, which transposes the s
 The output of the FFT is a sequence of complex numbers. To graph the power spectral density of the audio, which is what most people want from the FFT, you only need to use the first N/2 values of the output array.
 
 ## GUI Control
-The Arduino can be controlled through a GUI, created in QT. The GUI establishes a connection with the Arduino using the Serial Port, `<QSerialPort>`, and sends serial signals to control the matrix.
+The Arduino can be controlled through a very basic GUI, created in QT. The GUI establishes a connection with the Arduino using the Serial Port, `<QSerialPort>`, and sends serial signals to control the matrix without using any physical push buttons. If GUI is not used, Arduino will work in default mode (default color palette and default full frequency spectrum).
 
 ### Functions
 - Switch Color Palettes
