@@ -6,7 +6,7 @@ A spectrum analyzer takes as input music, specifically its sine wave, and proces
 
 ## Hardware
 - Arduino Nano
-- WS2812B RGB LEDS (x300) laid down as a serpentine vector (zig-zag), forming a virtual matrix.
+- WS2812B RGB LEDS (x300) laid down as a serpentine vector (zig-zag).
 
 Data from music is fetched connecting one of the leads of the 3.5mm jack to an analogPin set to `INPUT`. This way the Arduino keeps reading the different voltage levels, which are the values of the sine wave. Then an FFT is performed and the output is pushed to the matrix.
 
