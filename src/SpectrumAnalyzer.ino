@@ -97,7 +97,6 @@ void parse_serial_input()
     color_command = serial_input;
     return;
   }
-  return;
 }
 
 CRGBPalette16 hue;
@@ -106,7 +105,6 @@ void setup()
 {
   FastLED.addLeds<WS2812B, DATA_PIN, GRB>(leds[0], leds.Size());
   FastLED.setBrightness(70);
-  //pinMode(buttonPin, INPUT);  //now using GUI
   Serial.begin(9600);
 }
 
@@ -133,24 +131,14 @@ void loop()
     data[i] = sqrt(data[i] * data[i] + im[i] * im[i]);
   }
 
-  if (range_command == 49)  //Bass Frequency Range
-  {
-    data_out[1] >>= 3;
-    data_out[2] >>= 1;
-  }
   else  //Complete Frequency Range
   {
     for (int i = 0; i < 20; i++)
-    {
       data_out[i] = data[i * 3] + data[i * 3 + 1] + data[i * 3 + 2];
-      if (i == 0) data_out[i] >>= 1;
-    }
   }
 
   for (int i = 0; i < 20; i++)
-  {
     data_out[i] = map(data_out[i], 0, maxFreqAmplitude, 0, mHeight);
-  }
 
 
   switch (color_command)  // serial commands are sent as ASCII code, so Arduino will read them as integers ranging from 97-106
