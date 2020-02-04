@@ -1,8 +1,8 @@
 
-# MusicSpectrumVisualizer
-A Neopixel Arduino-Based Music Spectrum Analyzer.
+# Arduino MusicVisualizer
+A Neopixel Arduino-Based Music Visualizer
 ## A brief Introduction
-A spectrum analyzer takes as input music, specifically its sine wave, and processes it giving as output the amplitude of the various frequencies.
+MusicVisualizer takes as input music, specifically its sine wave, and processes it giving as output the amplitude of the various frequencies.
 
 ## Hardware
 - Arduino Nano
