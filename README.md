@@ -21,9 +21,3 @@ This library works in conjunction with `FastLED.h`. It builds the array used by 
 This library is used to perform a Fast Fourier Transform, which transposes the sine wave from the time domain to the frequency domain. It is given as input an array containing the values read from `analogRead()`.
 The output of the FFT is a sequence of complex numbers. To graph the power spectral density of the audio, which is what most people want from the FFT, you only need to use the first N/2 values of the output array.
 
-## GUI Control
-The Arduino can be controlled through a very basic GUI, created in QT. The GUI establishes a connection with the Arduino using the Serial Port, `<QSerialPort>`, and sends serial signals to control the matrix without using any physical push buttons. If GUI is not used, Arduino will work in default mode (default color palette and default full frequency spectrum).
-
-### Functions
-- Switch Color Palettes
-- Switch between Full Spectrum and Bass Spectrum
