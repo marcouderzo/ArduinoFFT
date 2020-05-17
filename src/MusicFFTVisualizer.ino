@@ -55,7 +55,7 @@ void loop()
   }
 
   for (int i = 0; i < 20; i++)
-    data_out[i] = data[i * 3] + data[i * 3 + 1] + data[i * 3 + 2];
+    data_out[i] = (data[i * 3] + data[i * 3 + 1] + data[i * 3 + 2])/3;
  
 
   for (int i = 0; i < 20; i++)
